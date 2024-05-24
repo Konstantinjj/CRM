@@ -12,6 +12,7 @@
             <th>Модель</th>
             <th>Год выпуска</th>
             <th>Владелец</th>
+            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,9 @@
             <td>{{ car.model }}</td>
             <td>{{ car.year_of_production }}</td>
             <td>{{ car.client.last_name }} {{ car.client.first_name }}</td>
+            <td>
+                <a href="{% url 'car_delete' car.pk %}" class="btn btn-danger btn-sm">Удалить</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

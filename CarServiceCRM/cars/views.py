@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Car
 from .forms import CarForm
 
@@ -15,3 +15,10 @@ def car_create(request):
     else:
         form = CarForm()
     return render(request, 'cars/car_form.html', {'form': form})
+
+def car_delete(request, pk):
+    car = get_object_or_404(Car, pk=pk)
+    if request.method == 'POST':
+        car.delete()
+        return redirect('car_list')
+    return render(request, 'cars/car_confirm_delete.html', {'car': car})
