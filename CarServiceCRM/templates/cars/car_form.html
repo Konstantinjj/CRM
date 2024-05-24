@@ -4,7 +4,30 @@
 <h1>Добавить Автомобиль</h1>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="mb-3">
+        {{ form.gos_num.label_tag }}
+        {{ form.gos_num }}
+    </div>
+    <div class="mb-3">
+        {{ form.vin_number.label_tag }}
+        {{ form.vin_number }}
+    </div>
+    <div class="mb-3">
+        {{ form.brand.label_tag }}
+        {{ form.brand }}
+    </div>
+    <div class="mb-3">
+        {{ form.model.label_tag }}
+        {{ form.model }}
+    </div>
+    <div class="mb-3">
+        {{ form.year_of_production.label_tag }}
+        {{ form.year_of_production }}
+    </div>
+    <div class="mb-3">
+        {{ form.client.label_tag }}
+        {{ form.client }}
+    </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>
 {% endblock %}
