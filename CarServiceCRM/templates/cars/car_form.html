@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<h1>Добавить Автомобиль</h1>
+<h1>{% if form.instance.pk %}Редактировать{% else %}Добавить{% endif %} Автомобиль</h1>
 <form method="post">
     {% csrf_token %}
     <div class="mb-3">
@@ -24,10 +24,14 @@
         {{ form.year_of_production.label_tag }}
         {{ form.year_of_production }}
     </div>
-    <div class="mb-3">
-        {{ form.client.label_tag }}
-        {{ form.client }}
-    </div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
+    {% if client %}
+        <input type="hidden" name="client" value="{{ client.id }}">
+    {% else %}
+        <div class="mb-3">
+            {{ form.client.label_tag }}
+            {{ form.client }}
+        </div>
+    {% endif %}
+    <button type="submit" class="btn btn-success">Сохранить</button>
 </form>
 {% endblock %}

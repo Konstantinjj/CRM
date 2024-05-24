@@ -33,3 +33,12 @@ def client_delete(request, pk):
         client.delete()
         return redirect('client_list')
     return render(request, 'clients/client_confirm_delete.html', {'client': client})
+
+def client_cars(request, pk):
+    client = get_object_or_404(Client, pk=pk)
+    cars = client.cars.all()
+    return render(request, 'clients/client_cars.html', {'client': client, 'cars': cars})
+
+def client_detail(request, pk):
+    client = get_object_or_404(Client, pk=pk)
+    return render(request, 'clients/client_detail.html', {'client': client})

@@ -1,3 +1,4 @@
+/* Основные стили */
 body {
     background-color: #343a40;
     color: #ffffff;
@@ -19,7 +20,7 @@ body {
 
 .sidebar .nav-link {
     color: #ffffff;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .sidebar .nav-link:hover {
@@ -35,6 +36,43 @@ body {
     border-radius: 5px;
 }
 
-.form-control-half {
-    width: 50%;
+/* Стили кнопок */
+.btn-success {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.btn-success:hover {
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+
+.btn-primary {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3 !important;
+    border-color: #004085 !important;
+}
+
+.btn-danger {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.btn-danger:hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+}
+
+.btn-secondary {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+.btn-secondary:hover {
+    background-color: #565e64 !important;
+    border-color: #545b62 !important;
 }

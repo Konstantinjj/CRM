@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Car
 from .forms import CarForm
+from clients.models import Client
 
 def car_list(request):
     cars = Car.objects.select_related('client').all()
@@ -15,6 +16,19 @@ def car_create(request):
     else:
         form = CarForm()
     return render(request, 'cars/car_form.html', {'form': form})
+
+def car_create_for_client(request, client_id):
+    client = get_object_or_404(Client, pk=client_id)
+    if request.method == 'POST':
+        form = CarForm(request.POST)
+        if form.is_valid():
+            car = form.save(commit=False)
+            car.client = client
+            car.save()
+            return redirect('client_cars', pk=client.pk)
+    else:
+        form = CarForm()
+    return render(request, 'cars/car_form.html', {'form': form, 'client': client})
 
 def car_edit(request, pk):
     car = get_object_or_404(Car, pk=pk)

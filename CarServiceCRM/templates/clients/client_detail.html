@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h1>Информация о клиенте</h1>
+<table class="table">
+    <tr>
+        <th>Фамилия</th>
+        <td>{{ client.last_name }}</td>
+    </tr>
+    <tr>
+        <th>Имя</th>
+        <td>{{ client.first_name }}</td>
+    </tr>
+    <tr>
+        <th>Отчество</th>
+        <td>{{ client.middle_name }}</td>
+    </tr>
+    <tr>
+        <th>Номер телефона</th>
+        <td>{{ client.phone_number }}</td>
+    </tr>
+</table>
+<a href="{% url 'client_cars' client.pk %}" class="btn btn-info">Перейти к автомобилям</a>
+<a href="{% url 'client_edit' client.pk %}" class="btn btn-primary">Редактировать</a>
+<a href="{% url 'client_delete' client.pk %}" class="btn btn-danger">Удалить</a>
+{% endblock %}

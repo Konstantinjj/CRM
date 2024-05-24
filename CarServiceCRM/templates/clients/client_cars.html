@@ -1,8 +1,11 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<h1>Автомобили</h1>
-<a href="{% url 'car_create' %}" class="btn btn-success mb-3">Добавить Автомобиль</a> <!-- Зеленая кнопка добавления -->
+<h1>Автомобили клиента {{ client.first_name }} {{ client.last_name }}</h1>
+<a href="{% url 'client_list' %}" class="btn btn-secondary mb-3">Назад к клиентам</a>
+<a href="{% url 'car_create_for_client' client.pk %}" class="btn btn-success mb-3">Добавить Автомобиль</a> <!-- Зеленая кнопка добавления автомобиля -->
+
+{% if cars %}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -11,8 +14,7 @@
             <th>Марка</th>
             <th>Модель</th>
             <th>Год выпуска</th>
-            <th>Владелец</th>
-            <th>Действия</th>
+            <th>Действия</th> <!-- Новый столбец -->
         </tr>
     </thead>
     <tbody>
@@ -24,14 +26,14 @@
             <td>{{ car.model }}</td>
             <td>{{ car.year_of_production }}</td>
             <td>
-                <a href="{% url 'client_detail' car.client.pk %}" class="btn btn-link btn-sm">{{ car.client.last_name }} {{ car.client.first_name }}</a> <!-- Ссылка на владельца -->
-            </td>
-            <td>
                 <a href="{% url 'car_edit' car.pk %}" class="btn btn-primary btn-sm">Редактировать</a> <!-- Синяя кнопка редактирования -->
-                <a href="{% url 'car_delete' car.pk %}" class="btn btn-danger btn-sm">Удалить</a>
+                <a href="{% url 'car_delete' car.pk %}" class="btn btn-danger btn-sm">Удалить</a> <!-- Красная кнопка удаления -->
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% else %}
+<p>У клиента пока нет автомобилей.</p>
+{% endif %}
 {% endblock %}

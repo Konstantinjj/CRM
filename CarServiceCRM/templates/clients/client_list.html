@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Клиенты</h1>
-<a href="{% url 'client_create' %}" class="btn btn-primary mb-3">Добавить Клиента</a>
+<a href="{% url 'client_create' %}" class="btn btn-success mb-3">Добавить Клиента</a> <!-- Зеленая кнопка добавления -->
 <table class="table table-striped">
     <thead>
         <tr>
@@ -10,8 +10,8 @@
             <th>Имя</th>
             <th>Отчество</th>
             <th>Номер телефона</th>
-            <th>Автомобили</th>
             <th>Действия</th>
+            <th>Перейти к автомобилям</th>
         </tr>
     </thead>
     <tbody>
@@ -22,15 +22,11 @@
             <td>{{ client.middle_name }}</td>
             <td>{{ client.phone_number }}</td>
             <td>
-                <ul>
-                    {% for car in client.cars.all %}
-                    <li>{{ car.brand }} {{ car.model }} ({{ car.gos_num }})</li>
-                    {% endfor %}
-                </ul>
+                <a href="{% url 'client_edit' client.pk %}" class="btn btn-primary btn-sm">Редактировать</a> <!-- Синяя кнопка редактирования -->
+                <a href="{% url 'client_delete' client.pk %}" class="btn btn-danger btn-sm">Удалить</a>
             </td>
             <td>
-                <a href="{% url 'client_edit' client.pk %}" class="btn btn-warning btn-sm">Редактировать</a>
-                <a href="{% url 'client_delete' client.pk %}" class="btn btn-danger btn-sm">Удалить</a>
+                <a href="{% url 'client_cars' client.pk %}" class="btn btn-info btn-sm">Автомобили</a> <!-- Ссылка на автомобили клиента -->
             </td>
         </tr>
         {% endfor %}
