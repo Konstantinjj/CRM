@@ -1,0 +1,29 @@
+body {
+    background-color: #343a40;
+    color: #ffffff;
+}
+.navbar {
+    background-color: #212529;
+}
+.sidebar {
+    background-color: #495057;
+    padding-top: 15px;
+    min-height: 100vh;
+}
+.sidebar h2 {
+    color: #ffffff;
+}
+.sidebar .nav-link {
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+.sidebar .nav-link:hover {
+    background-color: #6c757d;
+    color: #ffc107;  /* Цвет текста при наведении */
+}
+.content {
+    background-color: #3e444a;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
