@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Автомобили</h1>
+<a href="{% url 'car_create' %}" class="btn btn-success mb-3">Добавить Автомобиль</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -16,7 +17,7 @@
     <tbody>
         {% for car in cars %}
         <tr>
-            <td>{{ car.license_plate }}</td>
+            <td>{{ car.gos_num }}</td>
             <td>{{ car.vin_number }}</td>
             <td>{{ car.brand }}</td>
             <td>{{ car.model }}</td>
