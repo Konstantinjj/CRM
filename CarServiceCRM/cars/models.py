@@ -9,6 +9,7 @@ class Car(models.Model):
     model = models.CharField(max_length=50)
     year_of_production = models.IntegerField()
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='cars')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.brand} {self.model} ({self.gos_num})"
