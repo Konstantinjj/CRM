@@ -5,20 +5,20 @@
 <form method="post">
     {% csrf_token %}
     <div class="mb-3">
-        {{ form.gos_num.label_tag }}
-        {{ form.gos_num }}
-    </div>
-    <div class="mb-3">
-        {{ form.vin_number.label_tag }}
-        {{ form.vin_number }}
-    </div>
-    <div class="mb-3">
         {{ form.brand.label_tag }}
         {{ form.brand }}
     </div>
     <div class="mb-3">
         {{ form.model.label_tag }}
         {{ form.model }}
+    </div>
+    <div class="mb-3">
+        {{ form.gos_num.label_tag }}
+        {{ form.gos_num }}
+    </div>
+    <div class="mb-3">
+        {{ form.vin_number.label_tag }}
+        {{ form.vin_number }}
     </div>
     <div class="mb-3">
         {{ form.year_of_production.label_tag }}

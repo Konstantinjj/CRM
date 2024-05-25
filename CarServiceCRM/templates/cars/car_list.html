@@ -6,10 +6,10 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Гос номер</th>
-            <th>ВИН номер</th>
             <th>Марка</th>
             <th>Модель</th>
+            <th>Гос номер</th>
+            <th>ВИН номер</th>
             <th>Год выпуска</th>
             <th>Владелец</th>
             <th>Действия</th>
@@ -18,10 +18,10 @@
     <tbody>
         {% for car in cars %}
         <tr>
-            <td>{{ car.gos_num }}</td>
-            <td>{{ car.vin_number }}</td>
             <td>{{ car.brand }}</td>
             <td>{{ car.model }}</td>
+            <td>{{ car.gos_num }}</td>
+            <td>{{ car.vin_number }}</td>
             <td>{{ car.year_of_production }}</td>
             <td>
                 <a href="{% url 'client_detail' car.client.pk %}" class="btn btn-link btn-sm">{{ car.client.last_name }} {{ car.client.first_name }}</a> <!-- Ссылка на владельца -->

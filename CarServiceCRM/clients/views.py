@@ -1,10 +1,15 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Client
 from .forms import ClientForm
 
 def client_list(request):
-    clients = Client.objects.all().prefetch_related('cars')
-    return render(request, 'clients/client_list.html', {'clients': clients})
+    clients = Client.objects.all()
+    paginator = Paginator(clients, 2)  # Показывать 10 клиентов на странице
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'clients/client_list.html', {'page_obj': page_obj})
 
 def client_create(request):
     if request.method == 'POST':

@@ -1,8 +1,9 @@
 {% extends 'main/base.html' %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 <h1>Клиенты</h1>
-<a href="{% url 'client_create' %}" class="btn btn-success mb-3">Добавить Клиента</a> <!-- Зеленая кнопка добавления -->
+<a href="{% url 'client_create' %}" class="btn btn-success mb-3">Добавить Клиента</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -15,21 +16,23 @@
         </tr>
     </thead>
     <tbody>
-        {% for client in clients %}
+        {% for client in page_obj %}
         <tr>
             <td>{{ client.last_name }}</td>
             <td>{{ client.first_name }}</td>
             <td>{{ client.middle_name }}</td>
             <td>{{ client.phone_number }}</td>
             <td>
-                <a href="{% url 'client_edit' client.pk %}" class="btn btn-primary btn-sm">Редактировать</a> <!-- Синяя кнопка редактирования -->
+                <a href="{% url 'client_edit' client.pk %}" class="btn btn-primary btn-sm">Редактировать</a>
                 <a href="{% url 'client_delete' client.pk %}" class="btn btn-danger btn-sm">Удалить</a>
             </td>
             <td>
-                <a href="{% url 'client_cars' client.pk %}" class="btn btn-info btn-sm">Автомобили</a> <!-- Ссылка на автомобили клиента -->
+                <a href="{% url 'client_cars' client.pk %}" class="btn btn-info btn-sm">Автомобили</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+{% bootstrap_pagination page_obj %}
 {% endblock %}
