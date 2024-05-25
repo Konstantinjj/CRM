@@ -4,8 +4,8 @@ from .models import Client
 from .forms import ClientForm
 
 def client_list(request):
-    clients = Client.objects.all()
-    paginator = Paginator(clients, 10)  # Показывать 10 клиентов на странице
+    clients = Client.objects.all().order_by('-created_at')  # Сортировка по времени создания в обратном порядке
+    paginator = Paginator(clients, 10)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
