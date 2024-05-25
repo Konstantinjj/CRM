@@ -12,7 +12,11 @@
 <body>
     <nav class="navbar navbar-dark">
         <div class="container-fluid">
+            <img src="{% static 'images/logo.jpg' %}" alt="Logo" style="height: 100px; margin-right: 10px;">
             <span class="navbar-brand mb-0 h1">CRM Pro custom</span>
+            <div class="d-flex">
+                <a class="btn btn-outline-light" href="{% url 'admin:index' %}">Admin</a>
+            </div>
         </div>
     </nav>
     <div class="container-fluid">
