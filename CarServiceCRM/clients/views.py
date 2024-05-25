@@ -1,15 +1,26 @@
+from django.db.models import Q
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Client
 from .forms import ClientForm
 
-def client_list(request):
-    clients = Client.objects.all().order_by('-created_at')  # Сортировка по времени создания в обратном порядке
-    paginator = Paginator(clients, 10)
 
+def client_list(request):
+    query = request.GET.get('q')
+    if query:
+        clients = Client.objects.filter(
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(middle_name__icontains=query) |
+            Q(phone_number__icontains=query)
+        ).order_by('-created_at')
+    else:
+        clients = Client.objects.all().order_by('-created_at')
+
+    paginator = Paginator(clients, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'clients/client_list.html', {'page_obj': page_obj})
+    return render(request, 'clients/client_list.html', {'page_obj': page_obj, 'query': query})
 
 def client_create(request):
     if request.method == 'POST':

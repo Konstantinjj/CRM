@@ -3,14 +3,24 @@ from django.core.paginator import Paginator
 from .models import Car
 from .forms import CarForm
 from clients.models import Client
+from django.db.models import Q
+
 
 def car_list(request):
-    cars = Car.objects.all().order_by('-created_at')  # Сортировка по времени создания в обратном порядке
-    paginator = Paginator(cars, 10)
+    query = request.GET.get('q')
+    if query:
+        cars = Car.objects.filter(
+            Q(gos_num__icontains=query) |
+            Q(client__first_name__icontains=query) |
+            Q(client__last_name__icontains=query)
+        ).order_by('-created_at')
+    else:
+        cars = Car.objects.all().order_by('-created_at')
 
+    paginator = Paginator(cars, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'cars/car_list.html', {'page_obj': page_obj})
+    return render(request, 'cars/car_list.html', {'page_obj': page_obj, 'query': query})
 
 def car_create(request):
     if request.method == 'POST':

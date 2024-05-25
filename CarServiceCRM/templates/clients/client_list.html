@@ -3,6 +3,12 @@
 
 {% block content %}
 <h1>Клиенты</h1>
+<form method="get" action="{% url 'client_list' %}" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Поиск..." value="{{ query|default:'' }}">
+        <button class="btn btn-primary" type="submit">Поиск</button>
+    </div>
+</form>
 <a href="{% url 'client_create' %}" class="btn btn-success mb-3">Добавить Клиента</a>
 <table class="table table-striped">
     <thead>
