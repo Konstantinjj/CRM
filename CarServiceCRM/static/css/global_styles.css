@@ -21,6 +21,10 @@ body {
 .sidebar .nav-link {
     color: #ffffff;
     transition: background-color 0.3s ease, color 0.3s ease;
+    margin-bottom: 10px; /* Отступ между элементами меню */
+    padding: 10px 15px; /* Увеличение отступов внутри элементов */
+    border-radius: 5px; /* Закругленные углы */
+    background-color: #6c757d; /* Фоновый цвет элементов меню */
 }
 
 .sidebar .nav-link:hover {
