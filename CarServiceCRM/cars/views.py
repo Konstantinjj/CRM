@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 from .models import Car
 from .forms import CarForm
 from clients.models import Client
 
 def car_list(request):
-    cars = Car.objects.select_related('client').all()
-    return render(request, 'cars/car_list.html', {'cars': cars})
+    cars = Car.objects.all()
+    paginator = Paginator(cars, 10)  # Показывать 10 машин на странице
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'cars/car_list.html', {'page_obj': page_obj})
 
 def car_create(request):
     if request.method == 'POST':

@@ -5,7 +5,7 @@ from .forms import ClientForm
 
 def client_list(request):
     clients = Client.objects.all()
-    paginator = Paginator(clients, 2)  # Показывать 10 клиентов на странице
+    paginator = Paginator(clients, 10)  # Показывать 10 клиентов на странице
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
