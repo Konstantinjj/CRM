@@ -13,9 +13,9 @@ def client_list(request):
             Q(last_name__icontains=query) |
             Q(middle_name__icontains=query) |
             Q(phone_number__icontains=query)
-        ).order_by('-created_at')
+        ).order_by('-id')
     else:
-        clients = Client.objects.all().order_by('-created_at')
+        clients = Client.objects.all().order_by('-id')
 
     paginator = Paginator(clients, 10)
     page_number = request.GET.get('page')

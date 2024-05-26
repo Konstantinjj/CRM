@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<h1>Склад</h1>
+<form method="get" action="{% url 'item_list' %}" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Поиск..." value="{{ query|default_if_none:'' }}">
+        <button class="btn btn-primary" type="submit">Поиск</button>
+    </div>
+</form>
+<a href="{% url 'item_create' %}" class="btn btn-success mb-3">Добавить Позицию</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Наименование позиции</th>
+            <th>Стоимость</th>
+            <th>Количество</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.cost }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>
+                <a href="{% url 'item_edit' item.pk %}" class="btn btn-primary btn-sm">Редактировать</a>
+                <a href="{% url 'item_delete' item.pk %}" class="btn btn-danger btn-sm">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

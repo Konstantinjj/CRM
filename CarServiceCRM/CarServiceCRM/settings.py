@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'main',
     'clients',
     'cars',
+    'warehouse',
     'django_bootstrap5'
 ]
 

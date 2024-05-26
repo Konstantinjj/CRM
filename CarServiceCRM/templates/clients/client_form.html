@@ -18,22 +18,7 @@
             </ul>
         </div>
     {% endif %}
-    <div class="mb-3">
-        {{ form.first_name.label_tag }}
-        {{ form.first_name }}
-    </div>
-    <div class="mb-3">
-        {{ form.last_name.label_tag }}
-        {{ form.last_name }}
-    </div>
-    <div class="mb-3">
-        {{ form.middle_name.label_tag }}
-        {{ form.middle_name }}
-    </div>
-    <div class="mb-3">
-        {{ form.phone_number.label_tag }}
-        {{ form.phone_number }}
-    </div>
+    {{ form.as_p }}
     <button type="submit" class="btn btn-success">Сохранить</button>
 </form>
 

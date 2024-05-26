@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 {% block content %}
-<h1>{% if form.instance.pk %}Редактировать{% else %}Добавить{% endif %} Автомобиль</h1>
+<h1>{% if form.instance.pk %}Редактировать{% else %}Добавить{% endif %} Позицию</h1>
 <form method="post">
     {% csrf_token %}
     {% if form.errors %}

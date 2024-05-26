@@ -13,9 +13,9 @@ def car_list(request):
             Q(gos_num__icontains=query) |
             Q(client__first_name__icontains=query) |
             Q(client__last_name__icontains=query)
-        ).order_by('-created_at')
+        ).order_by('-id')
     else:
-        cars = Car.objects.all().order_by('-created_at')
+        cars = Car.objects.all().order_by('-id')
 
     paginator = Paginator(cars, 10)
     page_number = request.GET.get('page')
