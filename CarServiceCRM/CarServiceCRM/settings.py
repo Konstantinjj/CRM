@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'clients',
     'cars',
     'warehouse',
-    'django_bootstrap5'
+    'django_bootstrap5',
+    'worktypes',
 ]
 
 MIDDLEWARE = [

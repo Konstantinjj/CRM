@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<h1>Виды работ</h1>
+<form method="get" action="{% url 'worktype_list' %}" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Поиск..." value="{{ query|default_if_none:'' }}">
+        <button class="btn btn-primary" type="submit">Поиск</button>
+    </div>
+</form>
+<a href="{% url 'worktype_create' %}" class="btn btn-success mb-3">Добавить Вид Работы</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Наименование работы</th>
+            <th>Стоимость</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for worktype in worktypes %}
+        <tr>
+            <td>{{ worktype.name }}</td>
+            <td>{{ worktype.cost }}</td>
+            <td>
+                <a href="{% url 'worktype_edit' worktype.pk %}" class="btn btn-primary btn-sm">Редактировать</a>
+                <a href="{% url 'worktype_delete' worktype.pk %}" class="btn btn-danger btn-sm">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
