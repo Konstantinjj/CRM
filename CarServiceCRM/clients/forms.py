@@ -25,3 +25,20 @@ class ClientForm(forms.ModelForm):
         if not pattern.match(phone_number):
             raise forms.ValidationError("Номер телефона должен быть в формате +7(XXX)-XXX-XX-XX")
         return phone_number
+
+    def clean(self):
+        cleaned_data = super().clean()
+        first_name = cleaned_data.get('first_name')
+        last_name = cleaned_data.get('last_name')
+        middle_name = cleaned_data.get('middle_name')
+        phone_number = cleaned_data.get('phone_number')
+
+        # Исключаем текущую запись из проверки уникальности
+        if self.instance.pk:
+            if Client.objects.filter(first_name=first_name, last_name=last_name, middle_name=middle_name, phone_number=phone_number).exclude(pk=self.instance.pk).exists():
+                raise forms.ValidationError("Клиент с таким именем, фамилией, отчеством и номером телефона уже существует.")
+        else:
+            if Client.objects.filter(first_name=first_name, last_name=last_name, middle_name=middle_name, phone_number=phone_number).exists():
+                raise forms.ValidationError("Клиент с таким именем, фамилией, отчеством и номером телефона уже существует.")
+
+        return cleaned_data

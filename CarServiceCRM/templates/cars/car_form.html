@@ -4,14 +4,20 @@
 <h1>{% if form.instance.pk %}Редактировать{% else %}Добавить{% endif %} Автомобиль</h1>
 <form method="post">
     {% csrf_token %}
-    <div class="mb-3">
-        {{ form.brand.label_tag }}
-        {{ form.brand }}
-    </div>
-    <div class="mb-3">
-        {{ form.model.label_tag }}
-        {{ form.model }}
-    </div>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     <div class="mb-3">
         {{ form.gos_num.label_tag }}
         {{ form.gos_num }}
@@ -21,17 +27,21 @@
         {{ form.vin_number }}
     </div>
     <div class="mb-3">
+        {{ form.brand.label_tag }}
+        {{ form.brand }}
+    </div>
+    <div class="mb-3">
+        {{ form.model.label_tag }}
+        {{ form.model }}
+    </div>
+    <div class="mb-3">
         {{ form.year_of_production.label_tag }}
         {{ form.year_of_production }}
     </div>
-    {% if client %}
-        <input type="hidden" name="client" value="{{ client.id }}">
-    {% else %}
-        <div class="mb-3">
-            {{ form.client.label_tag }}
-            {{ form.client }}
-        </div>
-    {% endif %}
+    <div class="mb-3">
+        {{ form.client.label_tag }}
+        {{ form.client }}
+    </div>
     <button type="submit" class="btn btn-success">Сохранить</button>
 </form>
 {% endblock %}
