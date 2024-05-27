@@ -9,7 +9,7 @@ class WorkTypeListView(ListView):
     model = WorkType
     template_name = 'worktypes/worktype_list.html'
     context_object_name = 'worktypes'
-    paginate_by = 10
+    paginate_by = 1
 
     def get_queryset(self):
         query = self.request.GET.get('q')
