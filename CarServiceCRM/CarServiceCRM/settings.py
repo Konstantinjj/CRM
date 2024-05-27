@@ -36,12 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
-    'clients',
-    'cars',
-    'warehouse',
+    'apps.main',
+    'apps.clients',
+    'apps.cars',
+    'apps.warehouse',
     'django_bootstrap5',
-    'worktypes',
+    'apps.worktypes',
 ]
 
 MIDDLEWARE = [

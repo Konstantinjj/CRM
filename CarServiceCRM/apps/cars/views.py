@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Car
 from .forms import CarForm
-from clients.models import Client
+from apps.clients.models import Client
 from django.db.models import Q
 
 
