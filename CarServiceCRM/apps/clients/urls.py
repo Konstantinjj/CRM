@@ -1,11 +1,11 @@
 from django.urls import path
-from . import views
+from .views import ClientListView, ClientCreateView, ClientUpdateView, ClientDeleteView, ClientCarsView, ClientDetailView
 
 urlpatterns = [
-    path('', views.client_list, name='client_list'),
-    path('create/', views.client_create, name='client_create'),
-    path('edit/<int:pk>/', views.client_edit, name='client_edit'),
-    path('delete/<int:pk>/', views.client_delete, name='client_delete'),
-    path('cars/<int:pk>/', views.client_cars, name='client_cars'),
-    path('detail/<int:pk>/', views.client_detail, name='client_detail'), # Новый маршрут
+    path('', ClientListView.as_view(), name='client_list'),
+    path('create/', ClientCreateView.as_view(), name='client_create'),
+    path('edit/<int:pk>/', ClientUpdateView.as_view(), name='client_edit'),
+    path('delete/<int:pk>/', ClientDeleteView.as_view(), name='client_delete'),
+    path('cars/<int:pk>/', ClientCarsView.as_view(), name='client_cars'),
+    path('detail/<int:pk>/', ClientDetailView.as_view(), name='client_detail'),
 ]

@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .views import WorkTypeListView, WorkTypeCreateView, WorkTypeUpdateView, WorkTypeDeleteView
 
 urlpatterns = [
-    path('', views.worktype_list, name='worktype_list'),
-    path('create/', views.worktype_create, name='worktype_create'),
-    path('edit/<int:pk>/', views.worktype_edit, name='worktype_edit'),
-    path('delete/<int:pk>/', views.worktype_delete, name='worktype_delete'),
+    path('', WorkTypeListView.as_view(), name='worktype_list'),
+    path('create/', WorkTypeCreateView.as_view(), name='worktype_create'),
+    path('edit/<int:pk>/', WorkTypeUpdateView.as_view(), name='worktype_edit'),
+    path('delete/<int:pk>/', WorkTypeDeleteView.as_view(), name='worktype_delete'),
 ]

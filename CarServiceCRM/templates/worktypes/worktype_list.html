@@ -1,9 +1,11 @@
 {% extends 'main/base.html' %}
+{% load django_bootstrap5 %}
+
 {% block content %}
 <h1>Виды работ</h1>
 <form method="get" action="{% url 'worktype_list' %}" class="mb-3">
     <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Поиск..." value="{{ query|default_if_none:'' }}">
+        <input type="text" name="q" class="form-control" placeholder="Поиск..." value="{{ query|default:'' }}">
         <button class="btn btn-primary" type="submit">Поиск</button>
     </div>
 </form>
@@ -29,4 +31,6 @@
         {% endfor %}
     </tbody>
 </table>
+
+{% bootstrap_pagination page_obj %}
 {% endblock %}

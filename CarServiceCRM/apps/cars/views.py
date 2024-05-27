@@ -1,64 +1,66 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.core.paginator import Paginator
+from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Car
 from .forms import CarForm
 from apps.clients.models import Client
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+class CarListView(ListView):
+    model = Car
+    template_name = 'cars/car_list.html'
+    context_object_name = 'cars'
+    paginate_by = 10
 
-def car_list(request):
-    query = request.GET.get('q')
-    if query:
-        cars = Car.objects.filter(
-            Q(gos_num__icontains=query) |
-            Q(client__first_name__icontains=query) |
-            Q(client__last_name__icontains=query)
-        ).order_by('-id')
-    else:
-        cars = Car.objects.all().order_by('-id')
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Car.objects.filter(
+                Q(gos_num__icontains=query) |
+                Q(client__first_name__icontains=query) |
+                Q(client__last_name__icontains=query)
+            ).order_by('-id')
+        else:
+            return Car.objects.all().order_by('-id')
 
-    paginator = Paginator(cars, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'cars/car_list.html', {'page_obj': page_obj, 'query': query})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q', '')
+        return context
 
-def car_create(request):
-    if request.method == 'POST':
-        form = CarForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('car_list')
-    else:
-        form = CarForm()
-    return render(request, 'cars/car_form.html', {'form': form})
+    def paginate_queryset(self, queryset, page_size):
+        paginator = Paginator(queryset, page_size)
+        page = self.request.GET.get('page')
+        try:
+            page_obj = paginator.page(page)
+        except PageNotAnInteger:
+            page_obj = paginator.page(1)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+        return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
 
-def car_create_for_client(request, client_id):
-    client = get_object_or_404(Client, pk=client_id)
-    if request.method == 'POST':
-        form = CarForm(request.POST)
-        if form.is_valid():
-            car = form.save(commit=False)
-            car.client = client
-            car.save()
-            return redirect('client_cars', pk=client.pk)
-    else:
-        form = CarForm()
-    return render(request, 'cars/car_form.html', {'form': form, 'client': client})
+class CarCreateView(CreateView):
+    model = Car
+    form_class = CarForm
+    template_name = 'cars/car_form.html'
+    success_url = reverse_lazy('car_list')
 
-def car_edit(request, pk):
-    car = get_object_or_404(Car, pk=pk)
-    if request.method == 'POST':
-        form = CarForm(request.POST, instance=car)
-        if form.is_valid():
-            form.save()
-            return redirect('car_list')
-    else:
-        form = CarForm(instance=car)
-    return render(request, 'cars/car_form.html', {'form': form})
+    def get_initial(self):
+        initial = super().get_initial()
+        client_id = self.kwargs.get('client_id')
+        if client_id:
+            client = get_object_or_404(Client, pk=client_id)
+            initial['client'] = client
+        return initial
 
-def car_delete(request, pk):
-    car = get_object_or_404(Car, pk=pk)
-    if request.method == 'POST':
-        car.delete()
-        return redirect('car_list')
-    return render(request, 'cars/car_confirm_delete.html', {'car': car})
+class CarUpdateView(UpdateView):
+    model = Car
+    form_class = CarForm
+    template_name = 'cars/car_form.html'
+    success_url = reverse_lazy('car_list')
+
+class CarDeleteView(DeleteView):
+    model = Car
+    template_name = 'cars/car_confirm_delete.html'
+    success_url = reverse_lazy('car_list')
