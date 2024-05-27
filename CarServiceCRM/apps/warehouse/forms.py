@@ -12,8 +12,8 @@ class ItemForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control form-control-half'}),
-            'cost': forms.NumberInput(attrs={'class': 'form-control form-control-half'}),
-            'quantity': forms.NumberInput(attrs={'class': 'form-control form-control-half'}),
+            'cost': forms.NumberInput(attrs={'class': 'form-control form-control-half', 'step': '0.01'}),
+            'quantity': forms.NumberInput(attrs={'class': 'form-control form-control-half', 'step': '0.01'}),
         }
 
     def clean_name(self):

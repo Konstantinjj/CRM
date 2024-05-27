@@ -1,5 +1,4 @@
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Item
 from .forms import ItemForm
@@ -14,9 +13,7 @@ class ItemListView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         if query:
-            return Item.objects.filter(
-                Q(name__icontains=query)
-            ).order_by('-id')
+            return Item.objects.filter(Q(name__icontains=query)).order_by('-id')
         else:
             return Item.objects.all().order_by('-id')
 
