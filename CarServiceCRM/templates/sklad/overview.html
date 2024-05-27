@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<h1>Обзор склада</h1>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    {% for sort_group in sort_groups %}
+    <li class="nav-item" role="presentation">
+        <button class="nav-link {% if forloop.first %}active{% endif %}" id="tab-{{ sort_group.id }}" data-bs-toggle="tab" data-bs-target="#group-{{ sort_group.id }}" type="button" role="tab" aria-controls="group-{{ sort_group.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" data-tab="{{ sort_group.id }}">{{ sort_group.name }}</button>
+    </li>
+    {% endfor %}
+</ul>
+<div class="tab-content" id="myTabContent">
+    {% for sort_group in sort_groups %}
+    <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="group-{{ sort_group.id }}" role="tabpanel" aria-labelledby="tab-{{ sort_group.id }}">
+        <!-- Здесь будет контент для каждой группы -->
+    </div>
+    {% endfor %}
+</div>
+
+<script src="{% static 'js/overview.js' %}"></script>
+{% endblock %}
