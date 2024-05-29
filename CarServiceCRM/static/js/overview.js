@@ -1,30 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Функция для переключения вкладок на основе фрагмента URL
-    function switchTabFromURL() {
-        const hash = window.location.hash;
-        if (hash) {
-            const tab = document.querySelector(`[data-bs-target="${hash}"]`);
-            if (tab) {
-                const tabInstance = new bootstrap.Tab(tab);
-                tabInstance.show();
-            }
-        }
-    }
-
-    // Обновление URL при переключении вкладок
-    const tabs = document.querySelectorAll('#myTab button[data-tab]');
+    const tabs = document.querySelectorAll('#myTab .nav-link');
     tabs.forEach(tab => {
-        tab.addEventListener('shown.bs.tab', function (event) {
-            const target = event.target.getAttribute('data-bs-target');
-            if (target) {
-                history.replaceState(null, null, target);
+        tab.addEventListener('click', function (event) {
+            event.preventDefault();
+            const url = new URL(this.href);
+            const groupId = url.searchParams.get('group');
+            const targetPane = document.querySelector(`#group-${groupId}`);
+            if (targetPane) {
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('show', 'active'));
+                targetPane.classList.add('show', 'active');
+                history.replaceState(null, '', this.href);
             }
         });
     });
 
-    // Переключение вкладок при загрузке страницы
-    switchTabFromURL();
-
-    // Переключение вкладок при изменении фрагмента URL вручную
-    window.addEventListener('hashchange', switchTabFromURL);
+    const urlParams = new URLSearchParams(window.location.search);
+    const group = urlParams.get('group');
+    if (group) {
+        const activeTab = document.querySelector(`#tab-${group}`);
+        if (activeTab) {
+            const tabInstance = new bootstrap.Tab(activeTab);
+            tabInstance.show();
+        }
+    }
 });

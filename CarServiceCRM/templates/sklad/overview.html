@@ -5,20 +5,23 @@
 {% block content %}
 <h1>Обзор склада</h1>
 
+<div class="mb-3">
+    <a href="{% url 'item_create' %}" class="btn btn-success">Добавить Позицию</a>
+</div>
+
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     {% for sort_group in sort_groups %}
     <li class="nav-item" role="presentation">
-        <button class="nav-link {% if forloop.first %}active{% endif %}" id="tab-{{ sort_group.id }}" data-bs-toggle="tab" data-bs-target="#group-{{ sort_group.id }}" type="button" role="tab" aria-controls="group-{{ sort_group.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" data-tab="{{ sort_group.id }}">{{ sort_group.name }}</button>
+        <a class="nav-link {% if sort_group.id|stringformat:"s" == active_group_id|stringformat:"s" %}active{% endif %}" id="tab-{{ sort_group.id }}" href="?group={{ sort_group.id }}" role="tab" aria-controls="group-{{ sort_group.id }}" aria-selected="{% if sort_group.id|stringformat:"s" == active_group_id|stringformat:"s" %}true{% else %}false{% endif %}">{{ sort_group.name }}</a>
     </li>
     {% endfor %}
 </ul>
-<div class="tab-content" id="myTabContent">
-    {% for sort_group in sort_groups %}
-    <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="group-{{ sort_group.id }}" role="tabpanel" aria-labelledby="tab-{{ sort_group.id }}">
-        <!-- Здесь будет контент для каждой группы -->
-    </div>
-    {% endfor %}
-</div>
 
+<div class="tab-content" id="myTabContent">
+    {% include 'sklad/table.html' %}
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
 <script src="{% static 'js/overview.js' %}"></script>
 {% endblock %}
