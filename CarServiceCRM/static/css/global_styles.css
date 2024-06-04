@@ -84,3 +84,29 @@ body {
 .form-control-half {
     width: 50%;
 }
+
+/* Стили вкладок */
+.tab-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid #dee2e6;  /* Рамка вкладки */
+    border-radius: 0.25rem;
+    margin-bottom: -1px;
+    color: #f8f9fa;  /* Цвет текста вкладки */
+    background-color: #6c757d;  /* Цвет фона вкладки */
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef #e9ecef #dee2e6;
+    background-color: #5a6268;  /* Цвет фона при наведении */
+}
+
+.nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}

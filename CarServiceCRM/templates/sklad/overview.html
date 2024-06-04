@@ -5,17 +5,26 @@
 {% block content %}
 <h1>Обзор склада</h1>
 
+<form method="get" action="{% url 'overview' %}" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Поиск..." value="{{ query|default:'' }}">
+        <button class="btn btn-primary" type="submit">Поиск</button>
+    </div>
+</form>
+
 <div class="mb-3">
     <a href="{% url 'item_create' %}" class="btn btn-success">Добавить Позицию</a>
 </div>
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    {% for sort_group in sort_groups %}
-    <li class="nav-item" role="presentation">
-        <a class="nav-link {% if sort_group.id|stringformat:"s" == active_group_id|stringformat:"s" %}active{% endif %}" id="tab-{{ sort_group.id }}" href="?group={{ sort_group.id }}" role="tab" aria-controls="group-{{ sort_group.id }}" aria-selected="{% if sort_group.id|stringformat:"s" == active_group_id|stringformat:"s" %}true{% else %}false{% endif %}">{{ sort_group.name }}</a>
-    </li>
-    {% endfor %}
-</ul>
+<div class="tab-container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        {% for sort_group in sort_groups %}
+        <li class="nav-item" role="presentation">
+            <a class="nav-link {% if sort_group.id|stringformat:"s" == active_group_id|stringformat:"s" %}active{% endif %}" id="tab-{{ sort_group.id }}" href="?group={{ sort_group.id }}" role="tab" aria-controls="group-{{ sort_group.id }}" aria-selected="{% if sort_group.id|stringformat:"s" == active_group_id|stringformat:"s" %}true{% else %}false{% endif %}">{{ sort_group.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 
 <div class="tab-content" id="myTabContent">
     {% include 'sklad/table.html' %}
