@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'apps.worktypes',
     'apps.sklad',
+    'apps.sklad.templatetags.custom_filters',
 ]
 
 MIDDLEWARE = [

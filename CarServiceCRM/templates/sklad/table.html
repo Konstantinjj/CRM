@@ -1,10 +1,13 @@
+{% load custom_filters %}
+
 {% if items %}
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Наименование позиции</th>
-            <th>Стоимость</th>
+            <th>Стоимость за штуку</th>
             <th>Количество</th>
+            <th>Итоговая стоимость</th>
             <th>Группа сортировки</th>
             <th>Действия</th>
         </tr>
@@ -15,6 +18,7 @@
             <td>{{ item.name }}</td>
             <td>{{ item.cost }}</td>
             <td>{{ item.quantity }}</td>
+            <td>{{ item.cost|multiply:item.quantity }}</td>
             <td>{{ item.sort_group.name }}</td>
             <td>
                 <a href="{% url 'item_edit' item.pk %}" class="btn btn-primary btn-sm">Редактировать</a>
