@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.worktypes',
     'apps.sklad',
     'apps.sklad.templatetags.custom_filters',
+    'apps.employees',
 ]
 
 MIDDLEWARE = [

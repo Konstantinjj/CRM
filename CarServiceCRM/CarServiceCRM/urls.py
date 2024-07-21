@@ -9,4 +9,5 @@ urlpatterns = [
     # path('warehouse/', include('apps.warehouse.urls')),
     path('sklad/', include('apps.sklad.urls')),
     path('worktypes/', include('apps.worktypes.urls')),
+    path('employees/', include('apps.employees.urls')),
 ]

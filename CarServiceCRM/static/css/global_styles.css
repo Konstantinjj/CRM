@@ -110,3 +110,11 @@ body {
     background-color: #fff;
     border-color: #dee2e6 #dee2e6 #fff;
 }
+
+/* Чередование цветов столбцов */
+table.table-striped td:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+table.table-striped td:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
