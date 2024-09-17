@@ -5,6 +5,7 @@ from .models import Client
 from .forms import ClientForm
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import DetailView
 
 class ClientListView(ListView):
     model = Client
@@ -71,10 +72,7 @@ class ClientCarsView(ListView):
         context['client'] = get_object_or_404(Client, pk=self.kwargs['pk'])
         return context
 
-class ClientDetailView(ListView):
+class ClientDetailView(DetailView):
     model = Client
     template_name = 'clients/client_detail.html'
     context_object_name = 'client'
-
-    def get_object(self):
-        return get_object_or_404(Client, pk=self.kwargs['pk'])
