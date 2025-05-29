@@ -7,7 +7,7 @@ class CarForm(forms.ModelForm):
         model = Car
         fields = ['gos_num', 'vin_number', 'brand', 'model', 'year_of_production', 'client']
         labels = {
-            'gos_num': 'Гос номер',
+            'gos_num': 'Гос. номер',
             'vin_number': 'ВИН номер',
             'brand': 'Марка',
             'model': 'Модель',
